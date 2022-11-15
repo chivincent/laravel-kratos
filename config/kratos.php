@@ -18,7 +18,7 @@ return [
 
         'kratos-database' => [
             'driver' => 'kratos-database',
-            'model' => App\Models\User::class,
+            'model' => Chivincent\LaravelKratos\Models\KratosUser::class,
         ],
     ],
 ];
