@@ -47,6 +47,24 @@ return [
 ];
 ```
 
+- Update `config/cors.php`
+
+```php
+<?php
+
+return [
+    // ...
+    
+    'allowed_origins' => ['http://127.0.0.1:4455'],
+    
+    // ...
+    
+    'supports_credentials' => true,
+    
+    // ...
+]; 
+```
+
 ### Database Configuration
 
 If using `kratos-database` as UserProvider in `auth.guards.kratos.provider`, it's helpful to setup connection with default user model.

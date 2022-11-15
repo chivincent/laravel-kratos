@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chivincent\LaravelKratos\UserProvider;
+namespace Chivincent\LaravelKratos\UserProviders;
 
 use BadMethodCallException;
 use Illuminate\Auth\EloquentUserProvider;

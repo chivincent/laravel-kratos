@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chivincent\LaravelKratos\UserProvider;
+namespace Chivincent\LaravelKratos\UserProviders;
 
 use BadMethodCallException;
-use Chivincent\LaravelKratos\Contract\KratosIdentityContract;
+use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;

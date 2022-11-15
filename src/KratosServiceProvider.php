@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Chivincent\LaravelKratos;
 
-use Chivincent\LaravelKratos\UserProvider\KratosDatabaseUserProvider;
-use Chivincent\LaravelKratos\UserProvider\KratosUserProvider;
+use Chivincent\LaravelKratos\UserProviders\KratosDatabaseUserProvider;
+use Chivincent\LaravelKratos\UserProviders\KratosUserProvider;
 use GuzzleHttp\Client;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\RequestGuard;

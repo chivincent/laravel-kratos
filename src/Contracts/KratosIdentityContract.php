@@ -1,6 +1,6 @@
 <?php
 
-namespace Chivincent\LaravelKratos\Contract;
+namespace Chivincent\LaravelKratos\Contracts;
 
 use Ory\Kratos\Client\Model\Identity;
 

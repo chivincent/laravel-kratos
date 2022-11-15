@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Chivincent\LaravelKratos\Models;
 
 use BadMethodCallException;
-use Chivincent\LaravelKratos\Contract\KratosIdentityContract;
+use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 use DateTime;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Ory\Kratos\Client\Model\Identity;
