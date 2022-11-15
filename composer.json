@@ -1,0 +1,26 @@
+{
+    "name": "chivincent/laravel-kratos",
+    "description": "Laravel Kratos integrates authentication features with ory/kratos",
+    "type": "library",
+    "require": {
+        "php": "^8.1",
+        "ory/kratos-client-php": "^0.10.1",
+        "illuminate/support": "^9.39"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.13"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Chivincent\\LaravelKratos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vincent Chi",
+            "email": "song374561@chivincent.net"
+        }
+    ],
+    "minimum-stability": "stable"
+}
