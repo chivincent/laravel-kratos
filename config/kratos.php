@@ -9,4 +9,15 @@ return [
         'connect_timeout' => 5,
         'debug' => false,
     ],
+
+    'user_providers' => [
+        'kratos' => [
+            'driver' => 'kratos',
+            'model' => Chivincent\LaravelKratos\Models\KratosIdentity::class,
+        ],
+        'kratos-database' => [
+            'driver' => 'kratos-database',
+            'model' => App\Models\User::class,
+        ],
+    ],
 ];
