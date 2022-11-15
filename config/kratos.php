@@ -19,6 +19,7 @@ return [
         'kratos-database' => [
             'driver' => 'kratos-database',
             'model' => Chivincent\LaravelKratos\Models\KratosUser::class,
+            'connection' => env('KRATOS_DATABASE_CONNECTION', 'kratos'),
         ],
     ],
 ];

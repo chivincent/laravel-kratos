@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class KratosUser extends Model implements Authenticatable
 {
-    protected $connection = 'kratos';
-
     protected $table = 'identities';
 
     protected $hidden = [
@@ -21,6 +19,11 @@ class KratosUser extends Model implements Authenticatable
         'id' => 'string',
         'traits' => 'object',
     ];
+
+    public function getConnectionName()
+    {
+        return config('kratos.user_providers.kratos-database.connection', 'kratos');
+    }
 
     public function getAuthIdentifierName()
     {

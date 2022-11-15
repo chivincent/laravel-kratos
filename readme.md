@@ -77,7 +77,7 @@ If using `kratos-database` as UserProvider in `auth.guards.kratos.provider`, it'
 return [
     // ...
     'connections' => [
-        'kratos' => [ // connection name MUST use "kratos" 
+        'kratos' => [ // connection name should as same as `config('kratos.user_providers.kratos-database.connection')` 
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
