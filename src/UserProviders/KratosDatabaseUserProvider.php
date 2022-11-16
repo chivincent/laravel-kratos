@@ -7,6 +7,7 @@ namespace Chivincent\LaravelKratos\UserProviders;
 use BadMethodCallException;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Ory\Kratos\Client\Model\Identity;
 
 class KratosDatabaseUserProvider extends EloquentUserProvider
 {
@@ -17,14 +18,14 @@ class KratosDatabaseUserProvider extends EloquentUserProvider
 
     public function retrieveById($identifier)
     {
-        if (! ($id = $identifier?->getId())) {
+        if (! $identifier instanceof Identity) {
             return null;
         }
 
         $model = $this->createModel();
 
         return $this->newModelQuery($model)
-            ->where($model->getAuthIdentifierName(), $id)
+            ->where($model->getAuthIdentifierName(), $identifier->getId())
             ->first();
     }
 

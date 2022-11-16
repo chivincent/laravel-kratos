@@ -9,6 +9,7 @@ use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;
+use Ory\Kratos\Client\Model\Identity;
 
 class KratosUserProvider implements UserProvider
 {
@@ -18,6 +19,10 @@ class KratosUserProvider implements UserProvider
 
     public function retrieveById($identifier)
     {
+        if (! $identifier instanceof Identity) {
+            return null;
+        }
+
         if (is_subclass_of($this->model, KratosIdentityContract::class)) {
             return $this->model::fromKratosIdentity($identifier);
         }
