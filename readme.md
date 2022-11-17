@@ -55,7 +55,7 @@ return [
 return [
     // ...
     
-    'allowed_origins' => ['http://127.0.0.1:4455'],
+    'allowed_origins' => ['http://127.0.0.1:4455'], // Port 4455 is the default application of Kratos Frontend UI
     
     // ...
     
