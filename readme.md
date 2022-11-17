@@ -1,5 +1,7 @@
 # Laravel Kratos
 
+![Testing](https://github.com/chivincent/laravel-kratos/actions/workflows/php.yml/badge.svg)
+
 ## Introduction
 ---
 
