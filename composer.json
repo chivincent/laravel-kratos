@@ -28,5 +28,9 @@
             "email": "song374561@chivincent.net"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "lint": "vendor/bin/php-cs-fixer"
+    }
 }
