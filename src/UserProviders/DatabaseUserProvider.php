@@ -9,7 +9,7 @@ use Ory\Kratos\Client\Model\Identity;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class KratosDatabaseUserProvider extends EloquentUserProvider
+class DatabaseUserProvider extends EloquentUserProvider
 {
     public function __construct($model)
     {

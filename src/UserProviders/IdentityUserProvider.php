@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 
-class KratosUserProvider implements UserProvider
+class IdentityUserProvider implements UserProvider
 {
     public function __construct(protected string $model)
     {

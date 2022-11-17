@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Ory\Kratos\Client\Configuration;
 use Illuminate\Support\ServiceProvider;
 use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
-use Chivincent\LaravelKratos\UserProviders\KratosUserProvider;
-use Chivincent\LaravelKratos\UserProviders\KratosDatabaseUserProvider;
+use Chivincent\LaravelKratos\UserProviders\DatabaseUserProvider;
+use Chivincent\LaravelKratos\UserProviders\IdentityUserProvider;
 
 class KratosServiceProvider extends ServiceProvider
 {
@@ -52,8 +52,8 @@ class KratosServiceProvider extends ServiceProvider
     protected function configureAuthManager()
     {
         Auth::resolved(function (AuthManager $manager) {
-            $manager->provider('kratos', fn ($app, $config) => new KratosUserProvider($config['model']));
-            $manager->provider('kratos-database', fn ($app, $config) => new KratosDatabaseUserProvider($config['model']));
+            $manager->provider('kratos', fn ($app, $config) => new IdentityUserProvider($config['model']));
+            $manager->provider('kratos-database', fn ($app, $config) => new DatabaseUserProvider($config['model']));
             $manager->extend(
                 'kratos',
                 fn ($app, $name, array $config) => tap($this->createGuard($manager, $config), function ($guard) {
