@@ -32,5 +32,12 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "lint": "vendor/bin/php-cs-fixer"
+    },
+    "extra": {
+	"laravel": {
+	    "providers": [
+		"Chivincent\\LaravelKratos\\KratosServiceProvider"
+	    ]
+	}
     }
 }
