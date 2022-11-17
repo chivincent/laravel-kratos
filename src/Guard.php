@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-
 namespace Chivincent\LaravelKratos;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
 use Ory\Kratos\Client\ApiException;
 use Ory\Kratos\Client\Model\Session;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
 
 class Guard

@@ -3,8 +3,8 @@
 namespace Chivincent\LaravelKratos\Models;
 
 use BadMethodCallException;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class KratosUser extends Model implements Authenticatable
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Models;
 
-use Chivincent\LaravelKratos\Models\KratosIdentity;
 use DateTime;
-use Ory\Kratos\Client\Model\Identity;
 use Tests\TestCase;
+use Ory\Kratos\Client\Model\Identity;
+use Chivincent\LaravelKratos\Models\KratosIdentity;
 
 class KratosIdentityTest extends TestCase
 {

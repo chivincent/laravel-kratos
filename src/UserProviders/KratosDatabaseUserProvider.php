@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Chivincent\LaravelKratos\UserProviders;
 
 use BadMethodCallException;
+use Ory\Kratos\Client\Model\Identity;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Ory\Kratos\Client\Model\Identity;
 
 class KratosDatabaseUserProvider extends EloquentUserProvider
 {

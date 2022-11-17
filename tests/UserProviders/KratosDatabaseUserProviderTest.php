@@ -2,12 +2,12 @@
 
 namespace Tests\UserProviders;
 
-use Chivincent\LaravelKratos\Models\KratosUser;
-use Chivincent\LaravelKratos\UserProviders\KratosDatabaseUserProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
-use Ory\Kratos\Client\Model\Identity;
 use Tests\TestCase;
+use Ory\Kratos\Client\Model\Identity;
+use Chivincent\LaravelKratos\Models\KratosUser;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Chivincent\LaravelKratos\UserProviders\KratosDatabaseUserProvider;
 
 class KratosDatabaseUserProviderTest extends TestCase
 {

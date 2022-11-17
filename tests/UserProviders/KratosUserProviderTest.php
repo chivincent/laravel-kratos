@@ -2,16 +2,13 @@
 
 namespace Tests\UserProviders;
 
-use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
+use Mockery;
+use DateTime;
+use Tests\TestCase;
+use InvalidArgumentException;
+use Ory\Kratos\Client\Model\Identity;
 use Chivincent\LaravelKratos\Models\KratosIdentity;
 use Chivincent\LaravelKratos\UserProviders\KratosUserProvider;
-use DateTime;
-use Illuminate\Contracts\Auth\Authenticatable;
-use InvalidArgumentException;
-use Mockery;
-use Ory\Kratos\Client\Model\Identity;
-use Ory\Kratos\Client\Model\Session;
-use Tests\TestCase;
 
 class KratosUserProviderTest extends TestCase
 {

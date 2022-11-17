@@ -2,16 +2,15 @@
 
 namespace Tests;
 
-use Chivincent\LaravelKratos\Guard;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Http\Request;
 use Mockery;
-use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
+use Illuminate\Http\Request;
+use Chivincent\LaravelKratos\Guard;
 use Ory\Kratos\Client\ApiException;
-use Ory\Kratos\Client\Model\Identity;
 use Ory\Kratos\Client\Model\Session;
-use stdClass;
+use Ory\Kratos\Client\Model\Identity;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
 
 class GuardTest extends TestCase
 {

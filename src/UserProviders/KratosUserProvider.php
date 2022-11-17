@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Chivincent\LaravelKratos\UserProviders;
 
 use BadMethodCallException;
-use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;
 use Ory\Kratos\Client\Model\Identity;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 
 class KratosUserProvider implements UserProvider
 {

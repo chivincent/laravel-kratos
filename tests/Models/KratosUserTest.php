@@ -2,9 +2,9 @@
 
 namespace Tests\Models;
 
+use Tests\TestCase;
 use Chivincent\LaravelKratos\Models\KratosUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class KratosUserTest extends TestCase
 {
