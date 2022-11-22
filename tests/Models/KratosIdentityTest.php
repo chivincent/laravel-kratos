@@ -79,4 +79,27 @@ class KratosIdentityTest extends TestCase
         $this->assertNull($identity->createdAt);
         $this->assertNull($identity->updatedAt);
     }
+
+    public function test_serializable()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertIsArray($identity->toArray());
+        $this->assertJson($identity->toJson());
+        $this->assertJson(json_encode($identity));
+        $this->assertJson((string) $identity);
+        $this->assertJsonStringEqualsJsonString($identity->toJson(), json_encode($identity));
+    }
 }

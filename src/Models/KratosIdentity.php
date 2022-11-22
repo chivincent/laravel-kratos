@@ -6,12 +6,16 @@ namespace Chivincent\LaravelKratos\Models;
 
 use DateTime;
 use BadMethodCallException;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Carbon;
+use JsonSerializable;
 use Ory\Kratos\Client\Model\Identity;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
+use Stringable;
 
-class KratosIdentity implements KratosIdentityContract, Authenticatable
+class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayable, JsonSerializable, Jsonable, Stringable
 {
     public function __construct(
         public string $id,
@@ -73,5 +77,37 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable
     public function getRememberTokenName()
     {
         throw new BadMethodCallException('Unexpected method ['.__FUNCTION__.'] call');
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'schema_id' => $this->schemaId,
+            'schema_url' => $this->schemaUrl,
+            'state' => $this->state,
+            'state_changed_at' => $this->stateChangedAt,
+            'traits' => $this->traits,
+            'verifiable_addresses' => $this->verifiableAddresses,
+            'recovery_addresses' => $this->recoveryAddresses,
+            'metadata_public' => $this->metadataPublic,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+        ];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
+    }
+
+    public function toJson($options = JSON_THROW_ON_ERROR)
+    {
+        return json_encode($this->jsonSerialize(), $options);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }
