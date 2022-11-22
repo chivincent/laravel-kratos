@@ -2,10 +2,11 @@
     "name": "chivincent/laravel-kratos",
     "description": "Laravel Kratos integrates authentication features with ory/kratos",
     "type": "library",
+    "keywords": ["laravel", "auth", "authentication", "kratos", "ory-kratos"],
     "require": {
         "php": "^8.1",
         "ory/kratos-client-php": "^0.10.1",
-        "illuminate/support": "^9.39"
+        "illuminate/support": "^9"
     },
     "require-dev": {
         "orchestra/testbench": "^7.13",
@@ -34,10 +35,10 @@
         "lint": "vendor/bin/php-cs-fixer"
     },
     "extra": {
-	"laravel": {
-	    "providers": [
-		"Chivincent\\LaravelKratos\\KratosServiceProvider"
-	    ]
-	}
+        "laravel": {
+            "providers": [
+            "Chivincent\\LaravelKratos\\KratosServiceProvider"
+            ]
+        }
     }
 }
