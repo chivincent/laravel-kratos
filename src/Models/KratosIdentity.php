@@ -6,6 +6,7 @@ namespace Chivincent\LaravelKratos\Models;
 
 use DateTime;
 use BadMethodCallException;
+use Illuminate\Support\Carbon;
 use Ory\Kratos\Client\Model\Identity;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
@@ -17,13 +18,13 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable
         public string $schemaId,
         public string $schemaUrl,
         public ?string $state,
-        public ?DateTime $stateChangedAt,
+        public ?Carbon $stateChangedAt,
         public ?object $traits,
         public ?array $verifiableAddresses,
         public ?array $recoveryAddresses,
         public ?object $metadataPublic,
-        public ?DateTime $createdAt,
-        public ?DateTime $updatedAt,
+        public ?Carbon $createdAt,
+        public ?Carbon $updatedAt,
     ) {
     }
 
@@ -34,13 +35,13 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable
             $identity->getSchemaId(),
             $identity->getSchemaUrl(),
             $identity->getState(),
-            $identity->getStateChangedAt(),
+            $identity->getStateChangedAt() ? new Carbon($identity->getStateChangedAt()) : null,
             $identity->getTraits(),
             $identity->getVerifiableAddresses(),
             $identity->getRecoveryAddresses(),
             $identity->getMetadataPublic(),
-            $identity->getCreatedAt(),
-            $identity->getUpdatedAt(),
+            $identity->getCreatedAt() ? new Carbon($identity->getCreatedAt()) : null,
+            $identity->getUpdatedAt() ? new Carbon($identity->getUpdatedAt()) : null,
         );
     }
 

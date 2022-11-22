@@ -20,13 +20,13 @@ class KratosIdentityTest extends TestCase
                 schemaId:'default',
                 schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
                 state: 'active',
-                stateChangedAt: new DateTime(),
+                stateChangedAt: now(),
                 traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
                 verifiableAddresses: [],
                 recoveryAddresses: [],
                 metadataPublic: null,
-                createdAt: new DateTime(),
-                updatedAt: new DateTime(),
+                createdAt: now(),
+                updatedAt: now(),
             )
         );
     }
@@ -53,13 +53,13 @@ class KratosIdentityTest extends TestCase
         $this->assertSame($kratosIdentity->getSchemaId(), $identity->schemaId);
         $this->assertSame($kratosIdentity->getSchemaUrl(), $identity->schemaUrl);
         $this->assertSame($kratosIdentity->getState(), $identity->state);
-        $this->assertSame($kratosIdentity->getStateChangedAt(), $identity->stateChangedAt);
+        $this->assertTrue($identity->stateChangedAt->eq($kratosIdentity->getStateChangedAt()));
         $this->assertSame($kratosIdentity->getTraits(), $identity->traits);
         $this->assertSame($kratosIdentity->getVerifiableAddresses(), $identity->verifiableAddresses);
         $this->assertSame($kratosIdentity->getRecoveryAddresses(), $identity->recoveryAddresses);
         $this->assertSame($kratosIdentity->getMetadataPublic(), $identity->metadataPublic);
-        $this->assertSame($kratosIdentity->getCreatedAt(), $identity->createdAt);
-        $this->assertSame($kratosIdentity->getUpdatedAt(), $identity->updatedAt);
+        $this->assertTrue($identity->createdAt->eq($kratosIdentity->getCreatedAt()));
+        $this->assertTrue($identity->updatedAt->eq($kratosIdentity->getUpdatedAt()));
     }
 
     public function test_from_kratos_identity_with_null_columns()
