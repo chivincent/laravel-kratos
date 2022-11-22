@@ -16,14 +16,14 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable
         public string $id,
         public string $schemaId,
         public string $schemaUrl,
-        public string $state,
-        public DateTime $stateChangedAt,
-        public object $traits,
-        public array $verifiableAddresses,
-        public array $recoveryAddresses,
+        public ?string $state,
+        public ?DateTime $stateChangedAt,
+        public ?object $traits,
+        public ?array $verifiableAddresses,
+        public ?array $recoveryAddresses,
         public ?object $metadataPublic,
-        public DateTime $createdAt,
-        public DateTime $updatedAt,
+        public ?DateTime $createdAt,
+        public ?DateTime $updatedAt,
     ) {
     }
 

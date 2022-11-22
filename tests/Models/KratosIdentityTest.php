@@ -61,4 +61,22 @@ class KratosIdentityTest extends TestCase
         $this->assertSame($kratosIdentity->getCreatedAt(), $identity->createdAt);
         $this->assertSame($kratosIdentity->getUpdatedAt(), $identity->updatedAt);
     }
+
+    public function test_from_kratos_identity_with_null_columns()
+    {
+        $identity = KratosIdentity::fromKratosIdentity(new Identity([
+            'id' => uuid_create(),
+            'schemaId' => 'default',
+            'schemaUrl' => 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+        ]));
+
+        $this->assertNull($identity->state);
+        $this->assertNull($identity->stateChangedAt);
+        $this->assertNull($identity->traits);
+        $this->assertNull($identity->verifiableAddresses);
+        $this->assertNull($identity->recoveryAddresses);
+        $this->assertNull($identity->metadataPublic);
+        $this->assertNull($identity->createdAt);
+        $this->assertNull($identity->updatedAt);
+    }
 }
