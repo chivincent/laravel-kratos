@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Chivincent\LaravelKratos\Models;
 
-use DateTime;
-use BadMethodCallException;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Carbon;
+use Stringable;
 use JsonSerializable;
+use BadMethodCallException;
+use Illuminate\Support\Carbon;
 use Ory\Kratos\Client\Model\Identity;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
-use Stringable;
 
 class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayable, JsonSerializable, Jsonable, Stringable
 {
@@ -30,6 +29,11 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayab
         public ?Carbon $createdAt,
         public ?Carbon $updatedAt,
     ) {
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 
     public static function fromKratosIdentity(Identity $identity): static
@@ -104,10 +108,5 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayab
     public function toJson($options = JSON_THROW_ON_ERROR)
     {
         return json_encode($this->jsonSerialize(), $options);
-    }
-
-    public function __toString(): string
-    {
-        return $this->toJson();
     }
 }
