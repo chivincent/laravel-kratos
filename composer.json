@@ -9,7 +9,7 @@
         "illuminate/support": "^9"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.13",
+        "orchestra/testbench": "^7.14",
         "friendsofphp/php-cs-fixer": "^3.13"
     },
     "license": "MIT",
