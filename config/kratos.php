@@ -3,6 +3,7 @@
 return [
     'endpoints' => [
         'public' => env('KRATOS_PUBLIC_ENDPOINT', 'http://127.0.0.1:4433'),
+        'admin' => env('KRATOS_ADMIN_ENDPOINT', 'http://127.0.0.1:4434'),
     ],
 
     'client_options' => [
