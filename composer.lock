@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "188b2afc5ccc334b84fe7d94809177f2",
+    "content-hash": "63ae23f7c529bc8155c8a638295c9d6d",
     "packages": [
         {
             "name": "brick/math",
@@ -1917,16 +1917,16 @@
         },
         {
             "name": "ory/kratos-client-php",
-            "version": "v0.10.1",
+            "version": "v0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ory/kratos-client-php.git",
-                "reference": "738f452305556a487505d81ff56d9727b6a90b6c"
+                "reference": "07940fe32cd0eb17ad030b635682ce712ff09dd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ory/kratos-client-php/zipball/738f452305556a487505d81ff56d9727b6a90b6c",
-                "reference": "738f452305556a487505d81ff56d9727b6a90b6c",
+                "url": "https://api.github.com/repos/ory/kratos-client-php/zipball/07940fe32cd0eb17ad030b635682ce712ff09dd5",
+                "reference": "07940fe32cd0eb17ad030b635682ce712ff09dd5",
                 "shasum": ""
             },
             "require": {
@@ -1957,7 +1957,7 @@
                     "homepage": "https://www.ory.sh"
                 }
             ],
-            "description": "Documentation for all public and administrative Ory Kratos APIs. Public and administrative APIs are exposed on different ports. Public APIs can face the public internet without any protection while administrative APIs should never be exposed without prior authorization. To protect the administative API port you should use something like Nginx, Ory Oathkeeper, or any other technology capable of authorizing incoming requests.",
+            "description": "This is the API specification for Ory Identities with features such as registration, login, recovery, account verification, profile settings, password reset, identity management, session management, email and sms delivery, and more.",
             "homepage": "https://github.com/ory/kratos-client-php",
             "keywords": [
                 "api",
@@ -1970,7 +1970,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ory/kratos-client-php/issues",
-                "source": "https://github.com/ory/kratos-client-php/tree/v0.10.1"
+                "source": "https://github.com/ory/kratos-client-php/tree/v0.11.0"
             },
             "funding": [
                 {
@@ -1982,7 +1982,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-06-01T11:23:38+00:00"
+            "time": "2022-12-02T18:50:46+00:00"
         },
         {
             "name": "phpoption/phpoption",
