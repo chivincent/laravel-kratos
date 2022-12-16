@@ -37,38 +37,32 @@ class KratosServiceProvider extends ServiceProvider
 
     protected function registerKratosApis()
     {
-        $public = Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.public'));
-        $admin = Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.admin'));
-        if ($key = config('kratos.api_key')) {
-            $admin->setApiKey('Authorization', $key);
-        }
-
         $this->app->singleton(
             CourierApi::class,
             fn () => new CourierApi(
                 new Client(config('kratos.client_options')),
-                $admin
+                Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.admin'))
             )
         );
         $this->app->singleton(
             FrontendApi::class,
             fn () => new FrontendApi(
                 new Client(config('kratos.client_options')),
-                $public
+                Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.public'))
             )
         );
         $this->app->singleton(
             IdentityApi::class,
             fn () => new IdentityApi(
                 new Client(config('kratos.client_options')),
-                $admin
+                Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.admin'))
             )
         );
         $this->app->singleton(
             MetadataApi::class,
             fn () => new MetadataApi(
                 new Client(config('kratos.client_options')),
-                $public
+                Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.public'))
             )
         );
     }
