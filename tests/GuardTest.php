@@ -8,9 +8,9 @@ use Chivincent\LaravelKratos\Guard;
 use Ory\Kratos\Client\ApiException;
 use Ory\Kratos\Client\Model\Session;
 use Ory\Kratos\Client\Model\Identity;
+use Ory\Kratos\Client\Api\FrontendApi;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
 
 class GuardTest extends TestCase
 {
@@ -33,7 +33,7 @@ class GuardTest extends TestCase
         $session = Mockery::mock(Session::class);
         $session->shouldReceive('getIdentity')->andReturn($identity);
 
-        $this->mock(KratosApi::class)
+        $this->mock(FrontendApi::class)
             ->shouldReceive('toSession')
             ->with(null, 'ory_kratos_session=foobar')
             ->andReturn($session);
@@ -63,7 +63,7 @@ class GuardTest extends TestCase
 
     public function test_authentication_failed_with_invalid_kratos_session()
     {
-        $this->mock(KratosApi::class)
+        $this->mock(FrontendApi::class)
             ->shouldReceive('toSession')
             ->with(null, 'ory_kratos_session=foobar')
             ->andReturn('invalid_session');
@@ -78,7 +78,7 @@ class GuardTest extends TestCase
 
     public function test_authentication_failed_with_exception_of_kratos_sdk()
     {
-        $this->mock(KratosApi::class)
+        $this->mock(FrontendApi::class)
             ->shouldReceive('toSession')
             ->with(null, 'ory_kratos_session=foobar')
             ->andThrow(ApiException::class);
@@ -96,7 +96,7 @@ class GuardTest extends TestCase
         $session = Mockery::mock(Session::class);
         $session->shouldReceive('getIdentity')->andReturn(null);
 
-        $this->mock(KratosApi::class)
+        $this->mock(FrontendApi::class)
             ->shouldReceive('toSession')
             ->with(null, 'ory_kratos_session=foobar')
             ->andReturn($session);

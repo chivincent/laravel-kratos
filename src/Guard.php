@@ -7,15 +7,15 @@ namespace Chivincent\LaravelKratos;
 use Illuminate\Http\Request;
 use Ory\Kratos\Client\ApiException;
 use Ory\Kratos\Client\Model\Session;
+use Ory\Kratos\Client\Api\FrontendApi;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
 
 class Guard
 {
     protected const KRATOS_SESSION_COOKIE = 'ory_kratos_session';
 
-    public function __construct(protected KratosApi $api)
+    public function __construct(protected FrontendApi $api)
     {
     }
 

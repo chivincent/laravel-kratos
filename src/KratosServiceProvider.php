@@ -8,9 +8,10 @@ use GuzzleHttp\Client;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\RequestGuard;
 use Illuminate\Support\Facades\Auth;
+use Ory\Kratos\Client\Api\CourierApi;
 use Ory\Kratos\Client\Configuration;
+use Ory\Kratos\Client\Api\FrontendApi;
 use Illuminate\Support\ServiceProvider;
-use Ory\Kratos\Client\Api\V0alpha2Api as KratosApi;
 use Chivincent\LaravelKratos\UserProviders\DatabaseUserProvider;
 use Chivincent\LaravelKratos\UserProviders\IdentityUserProvider;
 
@@ -30,8 +31,8 @@ class KratosServiceProvider extends ServiceProvider
         ]);
 
         $this->app->singleton(
-            KratosApi::class,
-            fn () => new KratosApi(
+            FrontendApi::class,
+            fn () => new FrontendApi(
                 new Client(config('kratos.client_options')),
                 Configuration::getDefaultConfiguration()->setHost(config('kratos.endpoints.public'))
             )
