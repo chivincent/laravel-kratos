@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chivincent\LaravelKratos\Models;
 
+use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
 use Stringable;
 use JsonSerializable;
 use BadMethodCallException;
@@ -16,6 +17,8 @@ use Chivincent\LaravelKratos\Contracts\KratosIdentityContract;
 
 class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayable, JsonSerializable, Jsonable, Stringable
 {
+    use MustVerifyEmail;
+
     public function __construct(
         public string $id,
         public string $schemaId,
