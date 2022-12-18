@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class KratosUser extends Model implements Authenticatable
 {
@@ -56,5 +57,10 @@ class KratosUser extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         throw new BadMethodCallException('Unexpected method ['.__FUNCTION__.'] call');
+    }
+
+    public function hasVerifiedEmail()
+    {
+        // TODO
     }
 }

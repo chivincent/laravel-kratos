@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Models;
 
 use DateTime;
+use Ory\Kratos\Client\Model\VerifiableIdentityAddress;
 use Tests\TestCase;
 use Ory\Kratos\Client\Model\Identity;
 use Chivincent\LaravelKratos\Models\KratosIdentity;
@@ -101,5 +102,160 @@ class KratosIdentityTest extends TestCase
         $this->assertJson(json_encode($identity));
         $this->assertJson((string) $identity);
         $this->assertJsonStringEqualsJsonString($identity->toJson(), json_encode($identity));
+    }
+
+    public function test_has_verified_email_as_verifiable_addresses_not_set()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertFalse($identity->hasVerifiedEmail());
+    }
+
+    public function test_has_verified_email_as_unverified()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [new VerifiableIdentityAddress([
+                'id' => uuid_create(),
+                'status' => 'sent',
+                'via' => 'email',
+                'verified' => false,
+                'value' => 'foo@bar.test',
+                'verified_at' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ])],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertFalse($identity->hasVerifiedEmail());
+    }
+
+    public function test_has_verified_email_as_verified()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [new VerifiableIdentityAddress([
+                'id' => uuid_create(),
+                'status' => 'completed',
+                'via' => 'email',
+                'verified' => true,
+                'value' => 'foo@bar.test',
+                'verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ])],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertTrue($identity->hasVerifiedEmail());
+    }
+
+    public function test_has_verified_email_as_multiple_unverified_addresses()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [
+                new VerifiableIdentityAddress([
+                    'id' => uuid_create(),
+                    'status' => 'sent',
+                    'via' => 'email',
+                    'verified' => false,
+                    'value' => 'foo@bar.test',
+                    'verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]),
+                new VerifiableIdentityAddress([
+                    'id' => uuid_create(),
+                    'status' => 'sent',
+                    'via' => 'email',
+                    'verified' => false,
+                    'value' => 'bar@bar.test',
+                    'verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]),
+            ],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertFalse($identity->hasVerifiedEmail());
+    }
+
+    public function test_has_verified_email_as_multiple_verified_addresses()
+    {
+        $identity = new KratosIdentity(
+            id: uuid_create(),
+            schemaId:'default',
+            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+            state: 'active',
+            stateChangedAt: now(),
+            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+            verifiableAddresses: [
+                new VerifiableIdentityAddress([
+                    'id' => uuid_create(),
+                    'status' => 'sent',
+                    'via' => 'email',
+                    'verified' => false,
+                    'value' => 'foo@bar.test',
+                    'verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]),
+                new VerifiableIdentityAddress([
+                    'id' => uuid_create(),
+                    'status' => 'sent',
+                    'via' => 'email',
+                    'verified' => true,
+                    'value' => 'bar@bar.test',
+                    'verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]),
+            ],
+            recoveryAddresses: [],
+            metadataPublic: null,
+            createdAt: now(),
+            updatedAt: now(),
+        );
+
+        $this->assertTrue($identity->hasVerifiedEmail());
     }
 }

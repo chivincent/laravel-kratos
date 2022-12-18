@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chivincent\LaravelKratos\Models;
 
 use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
+use Ory\Kratos\Client\Model\VerifiableIdentityAddress;
 use Stringable;
 use JsonSerializable;
 use BadMethodCallException;
@@ -84,6 +85,13 @@ class KratosIdentity implements KratosIdentityContract, Authenticatable, Arrayab
     public function getRememberTokenName()
     {
         throw new BadMethodCallException('Unexpected method ['.__FUNCTION__.'] call');
+    }
+
+    public function hasVerifiedEmail()
+    {
+        return collect($this->verifiableAddresses)
+            ->filter(fn (VerifiableIdentityAddress $address) => $address->getVerified())
+            ->isNotEmpty();
     }
 
     public function toArray()

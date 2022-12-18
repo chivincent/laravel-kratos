@@ -6,10 +6,7 @@ use BadMethodCallException;
 
 trait MustVerifyEmail
 {
-    public function hasVerifiedEmail()
-    {
-        // TODO: Implement hasVerifiedEmail() method.
-    }
+    abstract public function hasVerifiedEmail();
 
     public function markEmailAsVerified()
     {
