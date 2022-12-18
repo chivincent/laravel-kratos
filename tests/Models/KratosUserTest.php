@@ -2,8 +2,8 @@
 
 namespace Tests\Models;
 
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use Illuminate\Support\Facades\DB;
 use Chivincent\LaravelKratos\Models\KratosUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

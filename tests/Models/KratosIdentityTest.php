@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Models;
 
 use DateTime;
-use Ory\Kratos\Client\Model\VerifiableIdentityAddress;
 use Tests\TestCase;
 use Ory\Kratos\Client\Model\Identity;
 use Chivincent\LaravelKratos\Models\KratosIdentity;
+use Ory\Kratos\Client\Model\VerifiableIdentityAddress;
 
 class KratosIdentityTest extends TestCase
 {

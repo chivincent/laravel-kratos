@@ -3,11 +3,10 @@
 namespace Chivincent\LaravelKratos\Models;
 
 use BadMethodCallException;
-use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
 
 class KratosUser extends Model implements Authenticatable
 {
