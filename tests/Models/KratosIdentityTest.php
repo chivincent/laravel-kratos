@@ -12,42 +12,19 @@ use Chivincent\LaravelKratos\Models\KratosIdentity;
 
 class KratosIdentityTest extends TestCase
 {
-    public function test_constructable()
+    /**
+     * @dataProvider identityProvider
+     */
+    public function test_constructable(KratosIdentity $identity)
     {
-        $this->assertInstanceOf(
-            KratosIdentity::class,
-            new KratosIdentity(
-                id: uuid_create(),
-                schemaId:'default',
-                schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-                state: 'active',
-                stateChangedAt: now(),
-                traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-                verifiableAddresses: [],
-                recoveryAddresses: [],
-                metadataPublic: null,
-                createdAt: now(),
-                updatedAt: now(),
-            )
-        );
+        $this->assertInstanceOf(KratosIdentity::class, $identity);
     }
 
-    public function test_from_kratos_identity()
+    /**
+     * @dataProvider kratosIdentityProvider
+     */
+    public function test_from_kratos_identity(Identity $kratosIdentity)
     {
-        $kratosIdentity = new Identity([
-            'id' => uuid_create(),
-            'schemaId' => 'default',
-            'schemaUrl' => 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            'state' => 'active',
-            'stateChangedAt' => new DateTime(),
-            'traits' => (object) ['name' => [], 'email' => 'foo@bar.com'],
-            'verifiableAddresses' => [],
-            'recoveryAddresses' => [],
-            'metadataPublic' =>  null,
-            'createdAt' => new DateTime(),
-            'updatedAt' => new DateTime(),
-        ]);
-
         $identity = KratosIdentity::fromKratosIdentity($kratosIdentity);
         $this->assertInstanceOf(KratosIdentity::class, $identity);
         $this->assertSame($kratosIdentity->getId(), $identity->id);
@@ -81,22 +58,11 @@ class KratosIdentityTest extends TestCase
         $this->assertNull($identity->updatedAt);
     }
 
-    public function test_serializable()
+    /**
+     * @dataProvider identityProvider
+     */
+    public function test_serializable(KratosIdentity $identity)
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
-
         $this->assertIsArray($identity->toArray());
         $this->assertJson($identity->toJson());
         $this->assertJson(json_encode($identity));
@@ -104,158 +70,201 @@ class KratosIdentityTest extends TestCase
         $this->assertJsonStringEqualsJsonString($identity->toJson(), json_encode($identity));
     }
 
-    public function test_has_verified_email_as_verifiable_addresses_not_set()
+    /**
+     * @dataProvider identityProvider
+     */
+    public function test_has_verified_email_as_verifiable_addresses_not_set(KratosIdentity $identity)
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
-
         $this->assertFalse($identity->hasVerifiedEmail());
     }
 
-    public function test_has_verified_email_as_unverified()
+    /**
+     * @dataProvider unverifiedIdentityProvider
+     */
+    public function test_has_verified_email_as_unverified(KratosIdentity $identity)
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [new VerifiableIdentityAddress([
-                'id' => uuid_create(),
-                'status' => 'sent',
-                'via' => 'email',
-                'verified' => false,
-                'value' => 'foo@bar.test',
-                'verified_at' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ])],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
-
         $this->assertFalse($identity->hasVerifiedEmail());
     }
 
-    public function test_has_verified_email_as_verified()
+    /**
+     * @dataProvider verifiedIdentityProvider
+     */
+    public function test_has_verified_email_as_verified(KratosIdentity $identity)
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [new VerifiableIdentityAddress([
-                'id' => uuid_create(),
-                'status' => 'completed',
-                'via' => 'email',
-                'verified' => true,
-                'value' => 'foo@bar.test',
-                'verified_at' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ])],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
-
         $this->assertTrue($identity->hasVerifiedEmail());
     }
 
-    public function test_has_verified_email_as_multiple_unverified_addresses()
+    public function identityProvider(): array
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [
-                new VerifiableIdentityAddress([
-                    'id' => uuid_create(),
-                    'status' => 'sent',
-                    'via' => 'email',
-                    'verified' => false,
-                    'value' => 'foo@bar.test',
-                    'verified_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]),
-                new VerifiableIdentityAddress([
-                    'id' => uuid_create(),
-                    'status' => 'sent',
-                    'via' => 'email',
-                    'verified' => false,
-                    'value' => 'bar@bar.test',
-                    'verified_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]),
-            ],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
-
-        $this->assertFalse($identity->hasVerifiedEmail());
+        return [
+             [
+                new KratosIdentity(
+                    id: uuid_create(),
+                    schemaId:'default',
+                    schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    state: 'active',
+                    stateChangedAt: now(),
+                    traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    verifiableAddresses: [],
+                    recoveryAddresses: [],
+                    metadataPublic: null,
+                    createdAt: now(),
+                    updatedAt: now(),
+                ),
+            ]
+        ];
     }
 
-    public function test_has_verified_email_as_multiple_verified_addresses()
+    public function kratosIdentityProvider(): array
     {
-        $identity = new KratosIdentity(
-            id: uuid_create(),
-            schemaId:'default',
-            schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
-            state: 'active',
-            stateChangedAt: now(),
-            traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
-            verifiableAddresses: [
-                new VerifiableIdentityAddress([
+        return [
+            [
+                new Identity([
                     'id' => uuid_create(),
-                    'status' => 'sent',
-                    'via' => 'email',
-                    'verified' => false,
-                    'value' => 'foo@bar.test',
-                    'verified_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]),
-                new VerifiableIdentityAddress([
-                    'id' => uuid_create(),
-                    'status' => 'sent',
-                    'via' => 'email',
-                    'verified' => true,
-                    'value' => 'bar@bar.test',
-                    'verified_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]),
-            ],
-            recoveryAddresses: [],
-            metadataPublic: null,
-            createdAt: now(),
-            updatedAt: now(),
-        );
+                    'schemaId' => 'default',
+                    'schemaUrl' => 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    'state' => 'active',
+                    'stateChangedAt' => new DateTime(),
+                    'traits' => (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    'verifiableAddresses' => [],
+                    'recoveryAddresses' => [],
+                    'metadataPublic' =>  null,
+                    'createdAt' => new DateTime(),
+                    'updatedAt' => new DateTime(),
+                ])
+            ]
+        ];
+    }
 
-        $this->assertTrue($identity->hasVerifiedEmail());
+    public function unverifiedIdentityProvider(): array
+    {
+        return [
+            'single_verifiable_addresses' => [
+                new KratosIdentity(
+                    id: uuid_create(),
+                    schemaId:'default',
+                    schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    state: 'active',
+                    stateChangedAt: now(),
+                    traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    verifiableAddresses: [new VerifiableIdentityAddress([
+                        'id' => uuid_create(),
+                        'status' => 'sent',
+                        'via' => 'email',
+                        'verified' => false,
+                        'value' => 'foo@baz.test',
+                        'verified_at' => null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ])],
+                    recoveryAddresses: [],
+                    metadataPublic: null,
+                    createdAt: now(),
+                    updatedAt: now(),
+                )
+            ],
+            'multiple_verifiable_addresses' => [
+                new KratosIdentity(
+                    id: uuid_create(),
+                    schemaId:'default',
+                    schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    state: 'active',
+                    stateChangedAt: now(),
+                    traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    verifiableAddresses: [
+                        new VerifiableIdentityAddress([
+                        'id' => uuid_create(),
+                        'status' => 'sent',
+                        'via' => 'email',
+                        'verified' => false,
+                        'value' => 'foo@baz.test',
+                        'verified_at' => null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                        ]),
+                        new VerifiableIdentityAddress([
+                            'id' => uuid_create(),
+                            'status' => 'sent',
+                            'via' => 'email',
+                            'verified' => false,
+                            'value' => 'bar@baz.test',
+                            'verified_at' => null,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]),
+                    ],
+                    recoveryAddresses: [],
+                    metadataPublic: null,
+                    createdAt: now(),
+                    updatedAt: now(),
+                )
+            ]
+        ];
+    }
+
+    public function verifiedIdentityProvider(): array
+    {
+        return [
+            'single_verifiable_addresses' => [
+                new KratosIdentity(
+                    id: uuid_create(),
+                    schemaId:'default',
+                    schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    state: 'active',
+                    stateChangedAt: now(),
+                    traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    verifiableAddresses: [new VerifiableIdentityAddress([
+                        'id' => uuid_create(),
+                        'status' => 'completed',
+                        'via' => 'email',
+                        'verified' => true,
+                        'value' => 'foo@baz.test',
+                        'verified_at' => now(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ])],
+                    recoveryAddresses: [],
+                    metadataPublic: null,
+                    createdAt: now(),
+                    updatedAt: now(),
+                )
+            ],
+            'multiple_verifiable_addresses' => [
+                new KratosIdentity(
+                    id: uuid_create(),
+                    schemaId:'default',
+                    schemaUrl: 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
+                    state: 'active',
+                    stateChangedAt: now(),
+                    traits: (object) ['name' => [], 'email' => 'foo@bar.com'],
+                    verifiableAddresses: [
+                        new VerifiableIdentityAddress([
+                            'id' => uuid_create(),
+                            'status' => 'sent',
+                            'via' => 'email',
+                            'verified' => false,
+                            'value' => 'foo@baz.test',
+                            'verified_at' => null,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]),
+                        new VerifiableIdentityAddress([
+                            'id' => uuid_create(),
+                            'status' => 'completed',
+                            'via' => 'email',
+                            'verified' => true,
+                            'value' => 'bar@baz.test',
+                            'verified_at' => now(),
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]),
+                    ],
+                    recoveryAddresses: [],
+                    metadataPublic: null,
+                    createdAt: now(),
+                    updatedAt: now(),
+                )
+            ]
+        ];
     }
 }
