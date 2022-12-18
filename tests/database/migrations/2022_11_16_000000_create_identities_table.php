@@ -18,10 +18,23 @@ return new class () extends Migration {
             $table->jsonb('metadata_public')->nullable();
             $table->jsonb('metadata_admin')->nullable();
         });
+
+        Schema::create('identity_verifiable_addresses', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('status', 16);
+            $table->string('via', 16);
+            $table->boolean('verified');
+            $table->string('value', 400);
+            $table->timestamp('verified_at')->nullable();
+            $table->foreignUuid('identity_id')->references('id')->on('identities')->onDelete('cascade');
+            $table->timestamps();
+            $table->uuid('nid')->nullable();
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists('identity_verifiable_addresses');
         Schema::dropIfExists('identities');
     }
 };

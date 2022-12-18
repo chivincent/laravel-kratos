@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Chivincent\LaravelKratos\Notifications\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 
 class KratosUser extends Model implements Authenticatable
@@ -61,6 +62,12 @@ class KratosUser extends Model implements Authenticatable
 
     public function hasVerifiedEmail()
     {
-        // TODO
+        return static::select('identity_verifiable_addresses.verified')
+            ->leftJoin(
+                'identity_verifiable_addresses',
+                fn (JoinClause $join) => $join->on('identities.id', 'identity_verifiable_addresses.identity_id'),
+            )
+            ->where('identity_verifiable_addresses.verified', true)
+            ->exists();
     }
 }
