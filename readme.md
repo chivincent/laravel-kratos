@@ -97,6 +97,30 @@ return [
 ];
 ```
 
+### MustVerifyEmail
+
+Laravel are using `Illuminate\Contracts\Auth\MustVerifyEmail` to check if user's email has been verified.
+
+It can easily `implements Illuminate\Contracts\Auth\MustVerifyEmail` by extending models:
+
+```php
+// app/Models/User.php
+
+use Chivincent\LaravelKratos\Models\KratosIdentity;
+use Chivincent\LaravelKratos\Models\KratosUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+// If using "kratos" user provider:
+class User extends KratosIdentity implements MustVerifyEmail
+{
+}
+
+// If using "kratos-database" user provider:
+//class User extends KratosUser implements MustVerifyEmail
+//{
+//}
+```
+
 ## Usage
 
 In `routes/api.php`:
