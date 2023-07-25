@@ -121,6 +121,7 @@ class KratosIdentityTest extends TestCase
             [
                 new Identity([
                     'id' => uuid_create(),
+                    'credentials' => null,
                     'schemaId' => 'default',
                     'schemaUrl' => 'http://127.0.0.1:4433/schemas/ZGVmYXVsdA',
                     'state' => 'active',
