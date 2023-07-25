@@ -94,7 +94,7 @@ class KratosIdentityTest extends TestCase
         $this->assertTrue($identity->hasVerifiedEmail());
     }
 
-    public function identityProvider(): array
+    public static function identityProvider(): array
     {
         return [
              [
@@ -115,7 +115,7 @@ class KratosIdentityTest extends TestCase
         ];
     }
 
-    public function kratosIdentityProvider(): array
+    public static function kratosIdentityProvider(): array
     {
         return [
             [
@@ -136,7 +136,7 @@ class KratosIdentityTest extends TestCase
         ];
     }
 
-    public function unverifiedIdentityProvider(): array
+    public static function unverifiedIdentityProvider(): array
     {
         return [
             'single_verifiable_addresses' => [
@@ -202,7 +202,7 @@ class KratosIdentityTest extends TestCase
         ];
     }
 
-    public function verifiedIdentityProvider(): array
+    public static function verifiedIdentityProvider(): array
     {
         return [
             'single_verifiable_addresses' => [

@@ -10,7 +10,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^8.5",
-        "friendsofphp/php-cs-fixer": "^3.22"
+        "friendsofphp/php-cs-fixer": "^3.22",
+        "phpunit/phpunit": "^9.6"
     },
     "license": "MIT",
     "autoload": {
